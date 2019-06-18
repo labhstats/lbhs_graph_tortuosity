@@ -4,7 +4,7 @@ This repository tries to serve as a guide and back-up of project code, potential
 ### Main issues, which stop it from being worthy of publication
 The software is not perfect and may need substantial reworking before they are worth applying to real data in any research project. Issues include, but are not limited to:
 - Inclusion of high intensity drainage vessels or noise in the outer part of the brain. [**Skullstrip and Segmentation issue.**]
-- Varying intensities across an image, or just different brain vasculatures imply varying degree of the vasculature that is segmentet. And these varyingly segmented vasculatures are therefore not bijective to the tortuosity metrics, due to inhrently "random" biological structures, but also due to deterministic (and random if included) segmentation software choices. [**Bias Field and Segmentation issue.**]
+- Varying intensities across an image, or just different brain vasculatures imply varying degree of the vasculature that is segmented. And these varyingly segmented vasculatures are therefore not bijective to the tortuosity metrics, due to inhrently "random" biological structures, but also due to deterministic (and random if included) segmentation software choices. [**Bias Field and Segmentation issue.**]
 - Both of the previous issues may manifest themselves together in the form of increased tortuosity metrics if many sufficiently small false links are found.
 - Removing noise is not a trivial task, because too much filtering of the noise may remove the visibility of small arteries. This is also undesired.
 
