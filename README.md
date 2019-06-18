@@ -38,12 +38,12 @@ As the method is intensity based, we at least recommend:
 ### What you need to use this software
 1. The software that creates the graphs from skeletons can be found at https://github.com/phi-max/skel2graph3d-matlab.
 2. Matlab2018a (or a newer version).
-3. Either your own 3D images or the synthetic arteries created in the "phantom_vessel_example.m".
+3. Either your own 3D images or the synthetic arteries created by the "viz_*_space_wrapper.m" files for multiple sines or helices or "do_*.m" files for a single sine or helix.
 
 ### How to install
-- As with Matlab software solely consisting of ".m" files you just dump it in a path where Matlab checks for ".m" scripts.
+- As with Matlab software solely consisting of ".m" files you just dump it in a path where Matlab checks for ".m" scripts. See "pathdef.m".
 
-### Probable maximum potential of the software (Assuming decent images, and the previous)
+### Probable maximum potential of the software per se (Assuming decent images)
 
 - 1 Binarization of vasculature
 ![Binarizatio of vasculature](https://github.com/labhstats/lbhs_graph_tortuosity/blob/master/screenshot_O_variant_presTortuosity.png)
