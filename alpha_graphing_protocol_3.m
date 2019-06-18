@@ -231,7 +231,7 @@ function y_status = alpha_graphing_protocol_3(working_BIDS_dir)
         
         disp('Saving graph structure as .mat file, assumes BIDS...')
         save_object_path_i = string(fullfile(all_files(i).folder,save_object_base_path));
-        save(save_object_path_i,'current_ID_string','A_i','node_i','link_i');
+        save(save_object_path_i,'current_ID_string','A_i','node_i','link_i','T_size');
         
         %%
         % Write a node plot. For testing purposes only.

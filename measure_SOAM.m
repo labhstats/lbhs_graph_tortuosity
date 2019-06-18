@@ -67,26 +67,30 @@ function SOAM_sum = measure_SOAM(links,im_dim,smoothing)
                 norm_T2 = T2/norm(T2,2);
                 dot_prod_T1_T2 = dot(norm_T1,norm_T2);
                 
-                SOAM_k = abs(safeAcos(dot_prod_T1_T2));
+                %Curvature measure the failure of a curve to be a line.
+                %Therefore the span of T1 and T2 must be a plane to be
+                %non-zero.
+                matrix_T1T2 = [T1;T2];
+                rank_matrix_T1T2 = rank(matrix_T1T2);
                 
-%                 %Curvature measure the failure of a curve to be a line.
-%                 %Therefore the span of T1 and T2 must be a plane to be
-%                 %non-zero.
-%                 matrix_T1T2 = [T1;T2];
-%                 rank_matrix_T1T2 = rank(matrix_T1T2);
-%                 
-%                 if rank_matrix_T1T2 == 2
-%                     %If a plane is spanned, do:
-%                     SOAM_k = abs(safeAcos(dot_prod_T1_T2));
-%                 else
-%                     %If a line is spanned, do:
-%                     SOAM_k = 0;
-%                 end
+                if rank_matrix_T1T2 == 2
+                    %If a plane is spanned, do:
+                    SOAM_k = abs(safeAcos(dot_prod_T1_T2));
+                else
+                    %If a line is spanned, do:
+                    SOAM_k = 0;
+                end
+                
+                if isnan(SOAM_k)
+                   disp('-------------------------------- SOAM_k NAN!') 
+                end
                 
                 link_SOAM = link_SOAM + SOAM_k;
             end
         else
-            disp('Small segment skipped...')
+            disp('Small segment skipped... [SOAM]')
+            link_SOAM = 0;
+            link_length = 1;
             %Segment too small to calculate any SOAM. So we do nothing.
         end
         
@@ -94,10 +98,18 @@ function SOAM_sum = measure_SOAM(links,im_dim,smoothing)
         
     end
     
+    if isnan(SOAM_sum)
+       disp('-------------------------------- SOAM SUM PRE NAN!') 
+    end
+    
     if num_links == 1
         %Do nothing. i.e. no correction for multiple segments/links.
     else
         SOAM_sum = SOAM_sum/Total_length;
+        
+        if isnan(SOAM_sum)
+            disp('-------------------------------- SOAM SUM POST NAN!') 
+        end
     end
     
     

@@ -100,21 +100,35 @@ function SOTM_sum = measure_SOTM(links,im_dim,smoothing)
                     SOTM_k = 0;
                 end
                 
+                if isnan(SOTM_k)
+                   disp('-------------------------------- SOTM NAN!') 
+                end
+                
                 link_SOTM = link_SOTM + SOTM_k;
             end
         else
-            disp('Small segment skipped...')
+            disp('Small segment skipped... [SOTM]')
             %Segment too small to calculate any SOTM. So we do nothing.
+            link_SOTM = 0;
+            link_length = 1;
         end
         
         SOTM_sum = SOTM_sum + link_SOTM/link_length;
         
     end
     
+    if isnan(SOTM_sum)
+       disp('-------------------------------- SOTM SUM PRE NAN!') 
+    end
+    
     if num_links == 1
         %Do nothing. i.e. no correction for multiple segments/links.
     else
         SOTM_sum = SOTM_sum/Total_length;
+        
+        if isnan(SOTM_sum)
+            disp('-------------------------------- SOTM SUM POST NAN!') 
+        end
     end
     
 end
