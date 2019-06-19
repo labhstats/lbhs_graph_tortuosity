@@ -1,12 +1,14 @@
 # Project: Graphing and Tortuosity estimation of central Cerebrovascularity.
 This repository tries to serve as a guide and back-up of project code, potentially to be used for publication.
 
-### Main issues, which stop it from being worthy of publication
+### Main issues, which stop it from being a trustworthy publication
 The software is not perfect and may need substantial reworking before they are worth applying to real data in any research project. Issues include, but are not limited to:
 - Inclusion of high intensity drainage vessels or noise in the outer part of the brain. [**Skullstrip and Segmentation issue.**]
 - Varying intensities across an image, or just different brain vasculatures imply varying degree of the vasculature that is segmented. And these varyingly segmented vasculatures are therefore not bijective to the tortuosity metrics, due to inhrently "random" biological structures, but also due to deterministic (and random if included) segmentation software choices. [**Bias Field and Segmentation issue.**]
 - Both of the previous issues may manifest themselves together in the form of increased tortuosity metrics if many sufficiently small false links are found.
 - Removing noise is not a trivial task, because too much filtering of the noise may remove the visibility of small arteries. This is also undesired.
+- Remarks about the tortuosity metrics found in **Bullitt (2003)** [https://doi.org/10.1109/TMI.2003.816964] and **Johnson (2007)** [https://doi.org/10.1016/j.medengphy.2006.07.008] **appear to contradict** some of the actual properties they have when calculated and verified in our examples, furthering the list of issues. This is especially true for the SOAM which we have verified two different ways for sine curves.
+- Degeneracy of the tortuosity metrics are also present when the Frequency of the sines and helices are in the range [0 < F < 1]. It should be mentioned that we cannot have any amplitude less than 1 due to a discrete resolution of voxels. And the figures included all plot at the range A > 3 and F > 1, with a unitary increase per increment.
 
 ## About the software
 The software was created with the intent to try to segment out the "central" vascularity surrounding the Circle of Willis. This is done using each image's own intensity distribution for their own segmentation. The proof of concept was seen discussed in **Kollmannsberger (2017)** [https://doi.org/10.1088/1367-2630/aa764b] and the foundation of our software builds on his code as well [https://github.com/phi-max/skel2graph3d-matlab].
@@ -34,11 +36,14 @@ As the method is intensity based, we at least recommend:
 - viz_sine_space_wrapper.m - A script that produces the example images under "/sine/*.jpg".
 - safeAcos.m - A safe arccosine to correct possible errors.
 
+### Smoothing
+All "measure_*.m" files has an option to do independent smoothing per axis. Through trial and error, we found that DM was made more inaccurate, but it improved the accuracy of both SOAM and SOTM.
+
 
 ### What you need to use this software
 1. The software that creates the graphs from skeletons can be found at https://github.com/phi-max/skel2graph3d-matlab.
 2. Matlab2018a (or a newer version).
-3. Either your own 3D images or the synthetic arteries created by the "viz_*_space_wrapper.m" files for multiple sines or helices or "do_*.m" files for a single sine or helix.
+3. Either your own 3D images or the synthetic arteries created by the "viz_*_space_wrapper.m" files for multiple sines or helices or "do_*.m" files for a single sine or helix. Just change the parameters in the code as seen appropriate.
 
 ### How to install
 - As with Matlab software solely consisting of ".m" files you just dump it in a path where Matlab checks for ".m" scripts. See "pathdef.m".
